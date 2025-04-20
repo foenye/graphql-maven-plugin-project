@@ -47,6 +47,7 @@ public enum CodeTemplate {
 
 	// Server files (alphabetic order)
 	DATA_FETCHER_DELEGATE(CodeTemplateScope.SERVER, "templates/server_GraphQLDataFetchersDelegate.vm.java"), //
+	DATA_FETCHER_DELEGATE_IMPL(CodeTemplateScope.SERVER, "templates/server_GraphQLDataFetchersDelegateImpl.vm.java"), //
 	DATA_FETCHERS_DELEGATES_REGISTRY(CodeTemplateScope.SERVER,
 			"templates/server_DataFetchersDelegatesRegistry.vm.java"), //
 	ENTITY_CONTROLLER(CodeTemplateScope.SERVER, "templates/server_EntityController.vm.java"), //

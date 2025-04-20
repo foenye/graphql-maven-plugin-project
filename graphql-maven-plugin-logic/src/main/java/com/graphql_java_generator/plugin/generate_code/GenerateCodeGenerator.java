@@ -646,6 +646,9 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 				ret += generateOneJavaFile(dataFetcherDelegate.getPascalCaseName(), true,
 						"generating " + dataFetcherDelegate.getPascalCaseName(), context,
 						CodeTemplate.DATA_FETCHER_DELEGATE);
+				ret += generateOneJavaImplFile(dataFetcherDelegate.getPascalCaseName()+"Impl",
+						"generating " + dataFetcherDelegate.getPascalCaseName()+"Impl", context,
+						CodeTemplate.DATA_FETCHER_DELEGATE_IMPL);
 			}
 
 			// Generation of the Spring Configuration class, that is specific to this GraphQL schema
@@ -849,8 +852,17 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 			CodeTemplate templateCode) {
 
 		context.put("targetFileName", classname);
-
 		File targetFile = getJavaFile(classname, utilityClass);
+		logger.debug("Generating {} into {}", msg, targetFile);
+		targetFile.getParentFile().mkdirs();
+
+		return generateOneFile(targetFile, msg, context, templateCode);
+	}
+	int generateOneJavaImplFile(String classname, String msg, VelocityContext context,
+			CodeTemplate templateCode) {
+
+		context.put("targetFileName", classname);
+		File targetFile = getJavaImplFile(classname);
 		logger.debug("Generating {} into {}", msg, targetFile);
 		targetFile.getParentFile().mkdirs();
 
@@ -942,6 +954,12 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 		}
 
 		String relativePath = packageName.replace('.', '/') + '/' + simpleClassname + ".java";
+		File file = new File(this.configuration.getTargetSourceFolder(), relativePath);
+		file.getParentFile().mkdirs();
+		return file;
+	}
+	File getJavaImplFile(String simpleClassname) {
+		String relativePath = "../../"+simpleClassname + ".java";
 		File file = new File(this.configuration.getTargetSourceFolder(), relativePath);
 		file.getParentFile().mkdirs();
 		return file;

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk8u402-full.jdk
+
+./mvnw clean install -DskipTests
