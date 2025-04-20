@@ -4,7 +4,7 @@
 #parse ("templates/common.vm")
 ##
 ##
-package ${configuration.packageName};
+package ${configuration.packageName}.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;

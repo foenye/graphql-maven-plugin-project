@@ -959,7 +959,7 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 		return file;
 	}
 	File getJavaImplFile(String simpleClassname) {
-		String relativePath = "../../"+simpleClassname + ".java";
+		String relativePath = "../../impl/"+simpleClassname + ".java";
 		File file = new File(this.configuration.getTargetSourceFolder(), relativePath);
 		file.getParentFile().mkdirs();
 		return file;
