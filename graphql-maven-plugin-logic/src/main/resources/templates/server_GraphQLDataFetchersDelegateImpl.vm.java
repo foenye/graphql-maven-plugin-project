@@ -51,7 +51,8 @@ public class ${dataFetchersDelegate.pascalCaseName}Impl implements ${packageUtil
 	 * 
 	 * @param batchLoaderEnvironment
 	 * 		The environement for this batch loaded. You can extract the GraphQLContext from this parameter.
-	 * @param graphQLContext
+	 * @param graphQLContext This context object can be used to contain key values that can be useful as "context" when executing
+	 * {@link graphql.schema.DataFetcher}s
 	 * @param keys
 	 * 		The objects for which the value for the ${dataFetcher.field.name} field must be retrieved.
 	 * @return This method returns <code>${dataFetcher.batchMappingReturnType.value}</code>, as defined by the
