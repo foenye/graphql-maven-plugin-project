@@ -1,5 +1,14 @@
 #!/bin/sh
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk8u402-full.jdk
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk8u402-full.jdk
 
-./mvnw clean install -DskipTests
+./mvnw clean install -DskipTests -pl \
+com.graphql-java-generator:graphql-maven-plugin-project,\
+graphql-java-common-dependencies,\
+graphql-java-client-dependencies,\
+graphql-java-common-runtime,\
+graphql-java-client-runtime,\
+graphql-java-server-dependencies,\
+graphql-java-server-runtime,\
+graphql-maven-plugin-logic,\
+graphql-maven-plugin
