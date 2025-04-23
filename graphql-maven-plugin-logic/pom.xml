@@ -226,6 +226,11 @@
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity-engine-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>33.4.8-jre</version>
+		</dependency>
 
 		<!-- dependendencies for graphql -->
 		<dependency>

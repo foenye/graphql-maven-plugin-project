@@ -26,6 +26,7 @@ import java.util.TreeSet;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
+import com.google.common.base.CaseFormat;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -646,7 +647,11 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 				ret += generateOneJavaFile(dataFetcherDelegate.getPascalCaseName(), true,
 						"generating " + dataFetcherDelegate.getPascalCaseName(), context,
 						CodeTemplate.DATA_FETCHER_DELEGATE);
-				ret += generateOneJavaImplFile(dataFetcherDelegate.getPascalCaseName()+"Impl",
+				String pkg = CaseFormat.UPPER_CAMEL.to( CaseFormat.LOWER_UNDERSCORE, dataFetcherDelegate.getType().getName() )
+						.split( "_" )[ 0 ];
+				context.put( "pkg", pkg );
+				String pkgDir = pkg+ "/";
+				ret += generateOneJavaImplFile(pkgDir, dataFetcherDelegate.getPascalCaseName()+"Impl",
 						"generating " + dataFetcherDelegate.getPascalCaseName()+"Impl", context,
 						CodeTemplate.DATA_FETCHER_DELEGATE_IMPL);
 			}
@@ -858,11 +863,11 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 
 		return generateOneFile(targetFile, msg, context, templateCode);
 	}
-	int generateOneJavaImplFile(String classname, String msg, VelocityContext context,
+	int generateOneJavaImplFile(String pkgDir, String classname, String msg, VelocityContext context,
 			CodeTemplate templateCode) {
 
 		context.put("targetFileName", classname);
-		File targetFile = getJavaImplFile(classname);
+		File targetFile = getJavaImplFile(pkgDir, classname);
 		logger.debug("Generating {} into {}", msg, targetFile);
 		targetFile.getParentFile().mkdirs();
 
@@ -958,8 +963,8 @@ public class GenerateCodeGenerator implements Generator, InitializingBean {
 		file.getParentFile().mkdirs();
 		return file;
 	}
-	File getJavaImplFile(String simpleClassname) {
-		String relativePath = "../../implementations/"+simpleClassname + ".java";
+	File getJavaImplFile(String pkgDir, String simpleClassname) {
+		String relativePath = "../../implementations/"+pkgDir+simpleClassname + ".java";
 		File file = new File(this.configuration.getTargetSourceFolder(), relativePath);
 		file.getParentFile().mkdirs();
 		return file;
